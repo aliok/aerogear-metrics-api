@@ -6,7 +6,10 @@ import (
 	"github.com/aerogear/aerogear-metrics-api/pkg/dao"
 	"github.com/aerogear/aerogear-metrics-api/pkg/mobile"
 	"github.com/aerogear/aerogear-metrics-api/pkg/web"
+	"log"
 )
+
+const ListenAddress = ":3000"
 
 func main() {
 	router := web.NewRouter()
@@ -28,6 +31,8 @@ func main() {
 		healthHandler := web.NewHealthHandler()
 		web.HealthzRoute(router, healthHandler)
 	}
+
+	log.Printf("Starting application... going to listen on %v", ListenAddress)
 
 	//start
 	if err := http.ListenAndServe(":3000", router); err != nil {
